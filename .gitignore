@@ -6,3 +6,10 @@ venv/
 env/
 .scraper_tool/
 .DS_Store
+
+# Virtual environment
+Lib/
+Scripts/
+pyvenv.cfg
+*.pyc
+__pycache__/
