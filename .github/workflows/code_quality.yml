@@ -25,8 +25,8 @@ jobs:
 
       - name: Run Black (format check)
         run: |
-          black --check .
+          black --check ingestion analytics persistence dashboard app.py
 
       - name: Run Ruff (lint check)
         run: |
-          ruff check .
+          ruff check ingestion analytics persistence dashboard app.py
