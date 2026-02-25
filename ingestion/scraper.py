@@ -4,6 +4,16 @@ from config import ARXIV_BASE_URL, ARXIV_LIST_PATH
 import time
 
 
+from persistence.repository import (
+    create_scrape_run,
+    update_scrape_run,
+    insert_paper,
+    get_or_create_author,
+    link_paper_author,
+)
+from datetime import datetime
+from config import ARXIV_RESULTS_PER_PAGE
+
 def fetch_arxiv_page(skip=0, show=25):
     """
     Fetch paginated arXiv listing page.
@@ -99,16 +109,6 @@ def parse_papers(html):
 
     return papers
 
-
-from persistence.repository import (
-    create_scrape_run,
-    update_scrape_run,
-    insert_paper,
-    get_or_create_author,
-    link_paper_author,
-)
-from datetime import datetime
-from config import ARXIV_RESULTS_PER_PAGE
 
 
 def run_scraper():

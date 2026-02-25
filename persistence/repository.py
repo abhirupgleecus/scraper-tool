@@ -1,5 +1,6 @@
 import sqlite3
 from config import DB_PATH
+from datetime import datetime
 
 
 # Signular DB entry point for enture project
@@ -11,9 +12,6 @@ def get_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
-
-
-from datetime import datetime
 
 
 def create_scrape_run():
