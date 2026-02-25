@@ -1,0 +1,32 @@
+name: Code Quality Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Black and Ruff
+        run: |
+          pip install black ruff
+
+      - name: Run Black (format check)
+        run: |
+          black --check .
+
+      - name: Run Ruff (lint check)
+        run: |
+          ruff check .
