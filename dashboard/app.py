@@ -34,24 +34,17 @@ with col1:
         st.metric(
             "📈 Growth vs Yesterday",
             f"{growth['percentage_change']}%",
-            delta=f"{growth['latest_count'] - growth['previous_count']} papers"
+            delta=f"{growth['latest_count'] - growth['previous_count']} papers",
         )
     else:
         st.metric("📈 Growth vs Yesterday", "N/A")
 
 with col2:
-    st.metric(
-        "⚙ Avg Papers per Successful Run",
-        run_metrics["avg_per_run"]
-    )
+    st.metric("⚙ Avg Papers per Successful Run", run_metrics["avg_per_run"])
 
 with col3:
     if peak_day:
-        st.metric(
-            "🔥 Peak Publishing Day",
-            peak_day[0],
-            delta=f"{peak_day[1]} papers"
-        )
+        st.metric("🔥 Peak Publishing Day", peak_day[0], delta=f"{peak_day[1]} papers")
     else:
         st.metric("🔥 Peak Publishing Day", "N/A")
 
@@ -76,8 +69,7 @@ if not df_daily.empty:
 
     df_daily["Previous Day"] = df_daily["Paper Count"].shift(1)
     df_daily["% Change"] = (
-        (df_daily["Paper Count"] - df_daily["Previous Day"])
-        / df_daily["Previous Day"]
+        (df_daily["Paper Count"] - df_daily["Previous Day"]) / df_daily["Previous Day"]
     ) * 100
 
     st.dataframe(df_daily)
@@ -120,8 +112,8 @@ df_runs = pd.DataFrame(
         "Started At",
         "Status",
         "Total Records Inserted",
-        "Error Message"
-    ]
+        "Error Message",
+    ],
 )
 
 if not df_runs.empty:
@@ -171,7 +163,7 @@ trending = get_trending_topics()
 if trending and "top_trending" in trending:
     df_trending = pd.DataFrame(
         trending["top_trending"],
-        columns=["Keyword", "Latest Count", "Previous Count", "Growth %"]
+        columns=["Keyword", "Latest Count", "Previous Count", "Growth %"],
     )
     st.dataframe(df_trending)
 else:

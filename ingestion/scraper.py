@@ -30,9 +30,7 @@ def fetch_abstract_data(url):
     # Extract abstract text
     abstract_block = soup.find("blockquote", class_="abstract")
     abstract_text = (
-        abstract_block.text.replace("Abstract:", "").strip()
-        if abstract_block
-        else None
+        abstract_block.text.replace("Abstract:", "").strip() if abstract_block else None
     )
 
     # Extract submission date safely
@@ -44,6 +42,7 @@ def fetch_abstract_data(url):
         # Example format:
         # "Submission history[v1] Tue, 20 Feb 2026 14:32:10 UTC (1234 KB)"
         import re
+
         match = re.search(r"\d{1,2}\s\w+\s\d{4}", text)
         if match:
             from datetime import datetime
@@ -87,17 +86,14 @@ def parse_papers(html):
 
         # Authors
         authors_div = dd.find("div", class_="list-authors")
-        authors = [
-            a.text.strip()
-            for a in authors_div.find_all("a")
-        ]
+        authors = [a.text.strip() for a in authors_div.find_all("a")]
 
         paper = {
-        "arxiv_id": arxiv_id,
-        "title": title,
-        "authors": authors,
-        "abstract_url": abstract_url,
-    }
+            "arxiv_id": arxiv_id,
+            "title": title,
+            "authors": authors,
+            "abstract_url": abstract_url,
+        }
 
         papers.append(paper)
 
@@ -114,6 +110,7 @@ from persistence.repository import (
 from datetime import datetime
 from config import ARXIV_RESULTS_PER_PAGE
 
+
 def run_scraper():
     """
     Full ingestion pipeline execution.
@@ -125,10 +122,9 @@ def run_scraper():
         skip = 0
         show = ARXIV_RESULTS_PER_PAGE
 
-        #page limit: to prevent infinite loop during development, can be removed later
+        # page limit: to prevent infinite loop during development, can be removed later
         max_pages = 50
         page_count = 0
-
 
         while True:
 
@@ -149,7 +145,7 @@ def run_scraper():
                 paper_id = insert_paper(
                     arxiv_id=paper["arxiv_id"],
                     title=paper["title"],
-                    abstract=abstract,  
+                    abstract=abstract,
                     published_at=published_at,
                     scraped_at=datetime.utcnow().isoformat(),
                     run_id=run_id,
@@ -164,7 +160,7 @@ def run_scraper():
             skip += show
             page_count += 1
             print(f"Page {page_count}: Parsed {len(papers)} papers")
-            
+
             time.sleep(2)
         update_scrape_run(
             run_id=run_id,

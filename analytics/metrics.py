@@ -55,14 +55,17 @@ def get_top_authors(limit=10):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
         SELECT a.name, COUNT(*) as paper_count
         FROM authors a
         JOIN paper_authors pa ON a.id = pa.author_id
         GROUP BY a.id
         ORDER BY paper_count DESC
         LIMIT ?;
-    """, (limit,))
+    """,
+        (limit,),
+    )
 
     results = cursor.fetchall()
     conn.close()
@@ -94,10 +97,7 @@ def get_run_metrics():
 
     conn.close()
 
-    return {
-        "status_counts": status_counts,
-        "avg_per_run": round(avg_per_run or 0, 2)
-    }
+    return {"status_counts": status_counts, "avg_per_run": round(avg_per_run or 0, 2)}
 
 
 def get_peak_day():
@@ -118,6 +118,7 @@ def get_peak_day():
     result = cursor.fetchone()
     conn.close()
     return result
+
 
 def get_all_runs():
     """
