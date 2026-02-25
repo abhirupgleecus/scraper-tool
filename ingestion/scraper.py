@@ -14,6 +14,7 @@ from persistence.repository import (
 from datetime import datetime
 from config import ARXIV_RESULTS_PER_PAGE
 
+
 def fetch_arxiv_page(skip=0, show=25):
     """
     Fetch paginated arXiv listing page.
@@ -108,7 +109,6 @@ def parse_papers(html):
         papers.append(paper)
 
     return papers
-
 
 
 def run_scraper():
