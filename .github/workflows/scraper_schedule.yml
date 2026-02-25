@@ -30,7 +30,7 @@ jobs:
 
       - name: Run scraper
         run: |
-          python ingestion/scraper.py
+          python -m ingestion.scraper
 
       - name: Commit updated database
         run: |
