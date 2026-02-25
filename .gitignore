@@ -5,6 +5,4 @@ __pycache__/
 venv/
 env/
 .scraper_tool/
-arxiv_monitor.db
-db/arxiv_monitor.db
 .DS_Store
